@@ -5,7 +5,7 @@ import { randomBytes } from "crypto";
 const app = express();
 app.use(bodyParser.json());
 
-const posts = {};
+const posts: any = {};
 
 app.get('/posts', (req: Request, res: Response) => {
     res.send(posts);
@@ -16,15 +16,11 @@ app.post('/posts',
         const id: string = randomBytes(4).toString('hex');
 
         const { title } = req.body;
-
-        // @ts-ignore
         posts[id] = {
             id,
             title
         };
 
-
-        // @ts-ignore
         res.status(201).send(posts[id]);
     });
 
