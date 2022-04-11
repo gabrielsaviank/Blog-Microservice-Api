@@ -10,7 +10,7 @@ const App = () => {
 
           <PostCreate/>
       </div>
-  )
-}
+  );
+};
 
 export default App;
