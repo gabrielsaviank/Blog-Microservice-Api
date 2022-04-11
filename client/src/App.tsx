@@ -1,6 +1,7 @@
 import React from 'react';
 
 import PostCreate from "./screens/PostCreate";
+import PostList from "./components/PostList";
 
 const App = () => {
   return (
@@ -9,6 +10,10 @@ const App = () => {
           <h3>Create Post</h3>
 
           <PostCreate/>
+
+          <hr/>
+          <h3>Posts</h3>
+          <PostList/>
       </div>
   );
 };
