@@ -2,11 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import AlleSysMicroPost from "../apis/AlleSysMicroPost";
 import CommentCreate from "./CommentCreate";
-
-interface Post {
-    id: string,
-    title: string
-}
+import CommentList from "./CommentList";
 
 const PostList = () => {
     const [posts, setPosts] = useState({});
@@ -25,7 +21,7 @@ const PostList = () => {
 
     useEffect(() => {
         fetchPosts();
-    }, [])
+    }, []);
 
     const renderedPosts = Object.values(posts).map((post: any) => {
         return(
@@ -36,6 +32,7 @@ const PostList = () => {
             >
                 <div className="card-body">
                     <h3>{post.title}</h3>
+                    <CommentList postId={post.id}/>
                     <CommentCreate postId={post.id} />
                 </div>
             </div>
