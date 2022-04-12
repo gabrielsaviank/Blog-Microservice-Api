@@ -3,10 +3,8 @@ import AlleSysMicroPost from "../apis/AlleSysMicroPost";
 
 const PostCreate = () => {
     const [title, setTitle] = useState('');
-    // Correct Typing, must fix later
-    // React.FormEvent<HTMLInputElement
 
-    const onSubmit = async(event: any) => {
+    const onSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
          event.preventDefault() ;
 
          await AlleSysMicroPost.post('/posts', {
