@@ -27,6 +27,6 @@ app.post('/posts/:id/comments', (req: Request, res: Response) => {
     res.status(201).send(comments)
 });
 
-app.listen(5000, () => {
+app.listen(4001, () => {
     console.log("Listening Comments Microservice on 5000");
 });
