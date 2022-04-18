@@ -1,20 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-import AlleSysMicroComment from "../apis/AlleSysMicroComment";
-
-const CommentList = ({ postId }: any) => {
-    const [comments, setComments] = useState([]);
-
-    const fetchData = async() => {
-        const [response] = await Promise.all([
-            AlleSysMicroComment.get(`/posts/${postId}/comments`)
-        ])
-        setComments(response.data);
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, []);
+const CommentList = ({ comments }: any) => {
 
     const renderedComments = comments.map((comment: {id: string, content: string}) => {
         return (
