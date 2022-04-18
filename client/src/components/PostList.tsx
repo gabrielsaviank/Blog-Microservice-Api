@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import AlleSysMicroPost from "../apis/AlleSysMicroPost";
+import AlleSysMicroQuery from "../apis/AlleSysMicroQuery";
 import CommentCreate from "./CommentCreate";
 import CommentList from "./CommentList";
 
@@ -14,7 +15,7 @@ const PostList = () => {
         // This is a way that is supposed to be twice as fast.
         // Also, work better with two or more functions, since this is not a prod app, let's test.
         const [response] = await Promise.all([
-            AlleSysMicroPost.get('/posts')
+            AlleSysMicroQuery('/posts')
         ])
         setPosts(response.data);
     };
@@ -32,7 +33,7 @@ const PostList = () => {
             >
                 <div className="card-body">
                     <h3>{post.title}</h3>
-                    <CommentList postId={post.id}/>
+                    <CommentList comments={post.comments}/>
                     <CommentCreate postId={post.id} />
                 </div>
             </div>
