@@ -15,14 +15,14 @@ app.get('/posts', (req: Request, res: Response) => {
 app.post('/events', (req: Request, res: Response) => {
     const { type, data }: any = req.body;
 
-    if (type === 'Post Created') {
+    if (type === 'PostCreated') {
         const { id, title } = data;
 
         // @ts-ignore
         posts[id] = { id, title, comments: [] };
     }
 
-    if (type === 'Comment Created') {
+    if (type === 'CommentCreated') {
         const { id, content, postId, status }: {
             id: string,
             content: { title: string },
@@ -40,16 +40,15 @@ app.post('/events', (req: Request, res: Response) => {
 
         // @ts-ignore
         const post = posts[postId];
-
-        // @ts-ignore
-        const comment = posts.comments.find((comment: { id: string, content: string }) => {
+        const comment = post.comments.find((comment: any) => {
             return comment.id === id;
         });
 
         comment.status = status;
-        comment.content = content
+        comment.content = content;
     }
 
+    console.log(posts);
     res.send({});
 });
 
