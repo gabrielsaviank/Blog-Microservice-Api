@@ -1,6 +1,7 @@
 import express, { Request, Response} from "express";
 const bodyParser = require('body-parser');
 const cors = require('cors');
+import axios from "axios";
 
 const app = express();
 app.use(bodyParser.json());
@@ -8,13 +9,7 @@ app.use(cors());
 
 const posts = {};
 
-app.get('/posts', (req: Request, res: Response) => {
-    res.send(posts);
-});
-
-app.post('/events', (req: Request, res: Response) => {
-    const { type, data }: any = req.body;
-
+const handleEvent = (type: string, data: any) => {
     if (type === 'PostCreated') {
         const { id, title } = data;
 
@@ -47,11 +42,23 @@ app.post('/events', (req: Request, res: Response) => {
         comment.status = status;
         comment.content = content;
     }
+};
 
-    console.log(posts);
+app.get('/posts', (req: Request, res: Response) => {
+    res.send(posts);
+});
+
+app.post('/events', (req: Request, res: Response) => {
+    const { type, data }: any = req.body;
+
+    handleEvent(type, data)
     res.send({});
 });
 
-app.listen(4002, () => {
-    console.log('Listening Query on 4002');
+app.listen(4002, async () => {
+    console.log('Listening Query Microservice on 4002');
+
+    const res = await axios.get('http://localhost:4005/events');
+
+    res.data.forEach((event: {type: string, data: any}) => handleEvent(event.type, event.data))
 });
