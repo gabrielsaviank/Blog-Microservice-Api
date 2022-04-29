@@ -32,7 +32,7 @@ app.get('/events', (req: Request, res: Response) => {
 });
 
 app.listen(4005, () => {
-    console.log("Event Bus Listening on 4005");
+    console.log("Event Bus Microservice is Listening on 4005");
 });
 
 

@@ -42,7 +42,6 @@ const handleEvent = (type: string, data: any) => {
         comment.status = status;
         comment.content = content;
     }
-
 };
 
 app.get('/posts', (req: Request, res: Response) => {
@@ -57,14 +56,9 @@ app.post('/events', (req: Request, res: Response) => {
 });
 
 app.listen(4002, async () => {
-    console.log('Listening Query on 4002');
+    console.log('Listening Query Microservice on 4002');
 
     const res = await axios.get('http://localhost:4005/events');
 
-    for (let event of res.data) {
-      console.log("Processing Event: ", event.type);
-
-      handleEvent(event.type, event.data);
-    }
-    // res.data.forEach((event: any) => handleEvent(event.type, event.data))
+    res.data.forEach((event: {type: string, data: any}) => handleEvent(event.type, event.data))
 });
